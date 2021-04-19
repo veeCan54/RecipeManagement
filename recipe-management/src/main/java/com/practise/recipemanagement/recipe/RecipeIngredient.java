@@ -6,9 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
 
 @Entity
+@Data
 public class RecipeIngredient {
 	
 	@Id
@@ -20,7 +23,7 @@ public class RecipeIngredient {
 	private String quantity;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JsonBackReference
+	@JsonIgnore
 	private Recipe recipe;	
 	
 	
@@ -28,12 +31,15 @@ public class RecipeIngredient {
 		
 	}
 
-	public RecipeIngredient(String name) {
+	public RecipeIngredient(Integer Id, String name, String quantity, Recipe recipe) {
 		super();
+		this.id = id;
 		this.name = name;
+		this.quantity = quantity;
+		this.recipe = recipe;
 	}
 
-	public Integer getId() {
+	/*public Integer getId() {
 		return id;
 	}
 
@@ -63,6 +69,6 @@ public class RecipeIngredient {
 
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
-	}
+	}*/
 }
 
