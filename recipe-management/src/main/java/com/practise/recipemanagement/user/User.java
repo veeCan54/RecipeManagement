@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.practise.recipemanagement.recipe.Recipe;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class User {
 	
 	@Id
@@ -30,7 +32,6 @@ public class User {
 	private boolean approvedFlag;
 	
 	@OneToMany(targetEntity=Recipe.class, fetch=FetchType.LAZY, mappedBy="user" )
-	@JsonManagedReference
 	private List<Recipe> recipes = new ArrayList();
 	
 	public List<Recipe> getRecipes() {
@@ -41,12 +42,15 @@ public class User {
 		this.recipes = recipes;
 	}
 
-	public User(Integer id, String firstName, String lastName, String emailAddress) {
+	public User(Integer id, String firstName, String lastName, String emailAddress, boolean adminFlag,
+			boolean approvedFlag) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailAddress = emailAddress;
+		this.adminFlag = adminFlag;
+		this.approvedFlag = approvedFlag;
 	}
 	
 	protected User() {
@@ -61,6 +65,7 @@ public class User {
 		this.id = id;
 	}
 
+	/*
 	public String getFirstName() {
 		return firstName;
 	}
@@ -100,7 +105,7 @@ public class User {
 	public void setApprovedFlag(boolean approvedFlag) {
 		this.approvedFlag = approvedFlag;
 	}
-
+*/
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
